@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>苏州市地理信息旅游系统</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .top-section {
+            background-color: #add8e6;
+            /* 天蓝色 */
+            flex: 1;
+
+        }
+
+        .top-section h1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            /* 字体颜色为白色 */
+            font-size: 48px;
+            /* 调整字号以匹配四号字体大小，具体大小可能需要根据实际字体调整 */
+            margin: 1em;
+        }
+
+        .bottom-section {
+            background-image: url('平江路.jpg');
+            background-size: cover;
+            /* 图片覆盖整个区域，可能会裁剪 */
+            background-position: center;
+            /* 图片居中显示 */
+            background-repeat: no-repeat;
+            /* 图片不重复 */
+            flex: 4;
+            padding: 20px;
+            /* 内边距 */
+        }
+
+        .bottom-section h2 {
+            font-size: 38px;
+            /* 字号为三号，可以根据需要调整 */
+            text-align: center;
+            /* 标题居中 */
+            margin: 2em;
+            /* 去除默认的上下外边距 */
+            color: rgb(171, 222, 208);
+            /* 字体颜色为白色 */
+        }
+
+        .bottom-section p {
+            font-size: 21px;
+            /* 调整字号以匹配文本大小，可以根据需要调整 */
+            text-indent: 2em;
+            /* 首行缩进两字符 */
+            margin: 1em 5em;
+            /* 上下外边距为1em，左右外边距为0 */
+            color: white;
+            /* 字体颜色为白色 */
+
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #a4bfd4;
+            color: white;
+            border-radius: 28px;
+            justify-content: center;
+            align-items: center;
+            font-size: 38px;
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-section">
+        <h1>基于 WebGIS 的苏州市地理信息旅游系统</h1>
+    </div>
+    <div class="bottom-section">
+        <h2>南风知我意 吹梦到苏州</h2>
+        <p>
+            苏州市，位于长江三角洲中部、江苏省东南部，是首批24座国家历史文化名城之一，著名的江南水乡，有“人间天堂”的美誉。从春秋伍子胥建阖闾大城至今，苏州城保持着“水陆并行、河街相邻”的双棋盘格局，以“小桥流水、粉墙黛瓦、史迹名园”为独特风貌。以拙政园、山塘街为代表的苏州古典园林和中国大运河苏州段被列为世界文化遗产，以周庄古镇为代表的江南水乡古镇被列入中国世界文化遗产预备名单，太湖绝大部分景点分布在苏州境内。作为“江南文化”的核心载体，苏州孕育的昆曲、评弹、园林和苏绣，已成为世界辨识中国的鲜明符号。
+        </p>
+
+        <a href="模块.html" class="button">点击进入</a>
+    </div>
+</body>
+
+</html>
