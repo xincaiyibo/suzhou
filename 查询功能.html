@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>查询功能</title>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.geoscene.cn/4.25/geoscene/themes/light/main.css">
+  <script src="https://js.geoscene.cn/4.25/"></script>
+  
+  <script>
+    require([
+        "geoscene/config",
+        "geoscene/views/MapView", 
+        "geoscene/WebMap",
+        "geoscene/widgets/Track",
+        "geoscene/widgets/Compass",
+        "geoscene/layers/FeatureLayer",
+        "geoscene/widgets/Search",
+        "geoscene/widgets/Legend"
+    ], (
+        esriConfig, 
+        MapView, 
+        WebMap,
+        Track,
+        Compass,
+        FeatureLayer,
+        Search,
+        Legend
+        ) => {
+
+    //geosceneConfig.apiKey = "AAPKcc79f332092b48d19442f97b17162034jE2SnwEf9R4IjAnnRu3uL0CnXkDgRhHhYMWoFBCGf5qqBQyPvMaC1JBYMrmnKH5C";
+    
+    var webmap = new WebMap({
+        portalItem: { 
+            id: "9b7e5dde62ea4352bb6742e54403f0a5"
+    }
+  });
+    var view = new MapView({
+        map: webmap,  
+        container: "viewDiv"
+  }); 
+    //位置跟踪
+    var track = new Track({
+        view: view,
+    });
+    view.ui.add(track, "top-left"); 
+    view.when(() => {
+        track.start();
+    }); 
+    //指南针
+    ShowCompass();
+    function ShowCompass() {
+      var compass = new Compass({
+        view: view
+      });
+      view.ui.add(compass, "top-left");
+    };
+    //属性查图
+    var featureLayerJDMC = new FeatureLayer({
+        url: "https://www.geosceneonline.cn/server/rest/services/Hosted/苏州景点/FeatureServer/0",
+        popupTemplate: {
+            title: "景点名称:{Name} </br> {Grade} </br> ({Introduction})",
+            overwriteActions: true
+          }
+    })
+    var featureLayerDTZD = new FeatureLayer({
+        url: "https://www.geosceneonline.cn/server/rest/services/Hosted/苏州地铁站点/FeatureServer/0",
+        popupTemplate: {
+            title: "站点名称:{PointName} </br> {LineName} </br> 经纬度{Long},{Lat})",
+            overwriteActions: true
+          }
+    })
+    var searchWidget = new Search({
+        view: view,
+        allPlaceholder: "搜索景点名称或站点",
+        includeDefaultSources: false,
+        sources: [{
+            layer: featureLayerJDMC, 
+            searchFields: ["name"],
+            displayField:"name",
+            exactMatch: false,
+            outFields: ["name"],
+            name:"景点地点",
+            placeholder:"example:拙政园"
+        },
+        {
+            layer: featureLayerDTZD, 
+            searchFields: ["pointname"],
+            displayField:"pointname",
+            exactMatch: false,
+            outFields: ["pointname"],
+            name:"地铁站点",
+            placeholder:"example:骑河"
+        }
+      ]
+    });
+    view.ui.add(searchWidget, "top-right");
+    //显示图例
+    view.when(() => {
+      const featureLayer = webmap.layers.getItemAt(2);
+      const legend = new Legend({
+        view: view,
+        layerInfos: [
+          {
+            layer: featureLayer,
+            title: "图例"
+          }
+        ]
+      });
+      view.ui.add(legend, "bottom-right");
+    });
+});
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+
+</html>

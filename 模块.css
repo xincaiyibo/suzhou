@@ -1,0 +1,32 @@
+body {  
+    display: flex;  
+    flex-direction: column;  
+    height: 100vh;  
+    margin: 0;  
+    padding: 0;  
+}  
+  
+.top-section {  
+    display: flex;  
+    justify-content: space-around;  
+    background-color: #f0f0f0;  
+    height: 10%; /* 调整为所需比例，这里假设整个页面高度为5份，上部分占1份 */  
+}  
+  
+.feature {  
+    flex: 1;   
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    border: 1px solid #ddd;  
+}  
+  
+.bottom-section {  
+    flex: 9; /* 下部分占9份 */   
+    overflow: auto; /* 如果内容过多，允许滚动 */  
+    padding: 20px; 
+    background-image: url('123.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

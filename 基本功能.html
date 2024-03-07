@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>基本功能</title>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.geoscene.cn/4.25/geoscene/themes/light/main.css">
+  <script src="https://js.geoscene.cn/4.25/"></script>
+  
+  <script>
+    require([
+      "geoscene/config",
+      "geoscene/views/MapView", 
+      "geoscene/WebMap",
+      "geoscene/widgets/BasemapGallery",
+      "geoscene/widgets/Compass",
+      "geoscene/widgets/ScaleBar", 
+      "geoscene/widgets/CoordinateConversion",
+      "geoscene/widgets/LayerList"
+    ], 
+      (esriConfig, 
+       MapView, 
+       WebMap,
+       BasemapGallery,
+       Compass,
+       ScaleBar,
+       CoordinateConversion,
+       LayerList
+       ) => {
+
+   //geosceneConfig.apiKey = "AAPK0f5d93b2bd4f4aacbdc76eba8d8ce55eIA7clxSUXBuV273Du4TvjMPu0_-pq6P8QCeCYtX3bdOuKOXYYPHT1XtTnbUFjWQz";
+    
+    var webmap = new WebMap({
+        portalItem: { 
+            id: "9b7e5dde62ea4352bb6742e54403f0a5"
+          }
+    });
+    var view = new MapView({
+       map: webmap,  
+       container: "viewDiv"
+    });
+    //地图库
+    var basemapGallery = new BasemapGallery({
+      view: view,
+    });
+    view.ui.add(basemapGallery,{
+      position: "top-right"
+    });
+    //指南针
+    ShowCompass();
+    function ShowCompass() {
+      var compass = new Compass({
+        view: view
+      });
+      view.ui.add(compass, "top-left");
+    };
+    //比例尺
+    ShowScaleBar();
+    function ShowScaleBar() {
+      var scaleBar = new ScaleBar({
+        style: "ruler",
+        view: view,
+        unit: "dual"
+      });
+      view.ui.add(scaleBar, "bottom-left")
+    };
+    //坐标转换
+    const ccWidget = new CoordinateConversion({
+          view: view
+    });
+    view.ui.add(ccWidget, "bottom-left");
+    //图层列表
+    view.when(() => {
+      const layerList = new LayerList({
+        view: view
+    });
+    view.ui.add(layerList, "top-right");
+  });
+});
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+
+</html>

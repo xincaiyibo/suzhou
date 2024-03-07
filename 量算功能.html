@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>基本功能</title>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.geoscene.cn/4.25/geoscene/themes/light/main.css">
+  <script src="https://js.geoscene.cn/4.25/"></script>
+  
+  <script>
+    require([
+      "geoscene/config", 
+      "geoscene/views/MapView", 
+      "geoscene/WebMap",
+      "geoscene/widgets/BasemapToggle",
+      "geoscene/widgets/AreaMeasurement2D",
+      "geoscene/widgets/DistanceMeasurement2D"
+    ], (
+      esriConfig,  
+      MapView, 
+      WebMap,
+      BasemapToggle,
+      AreaMeasurement2D,
+      DistanceMeasurement2D
+      ) => {
+
+    //geosceneConfig.apiKey = "AAPKcc79f332092b48d19442f97b17162034jE2SnwEf9R4IjAnnRu3uL0CnXkDgRhHhYMWoFBCGf5qqBQyPvMaC1JBYMrmnKH5C";
+    
+    var webmap = new WebMap({
+        portalItem: { 
+            id: "9b7e5dde62ea4352bb6742e54403f0a5"
+          }
+        });
+      
+    var view = new MapView({
+      map: webmap,  
+      container: "viewDiv"
+    });
+    //更改地图底图
+    var basemapToggle = new BasemapToggle({
+      view: view,
+      nextBasemap: "geoscene-community"
+    });
+    view.ui.add(basemapToggle, "bottom-right");
+    //面积量算
+    let measurementWidget = new AreaMeasurement2D({
+      view: view,
+      lable: "面积量算",
+      container: measurementWidgetDiv
+    });
+    view.ui.add(measurementWidget, "top-right");
+    //距离量算
+    var Distance2D = new DistanceMeasurement2D({
+      view: view,
+      lable: "距离量算",
+      unit: "meters",
+      container: Distance2DDiv
+    });
+    view.ui.add(Distance2D, "top-right");
+  });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+  <div id="measurementWidgetDiv">面积量算</div>
+  <div id="Distance2DDiv">距离量算</div>
+</body>
+
+</html>
